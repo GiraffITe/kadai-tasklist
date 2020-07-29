@@ -30,10 +30,13 @@ public class NewServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         //CSRF対策
+        request.setAttribute("_token",request.getSession().getId());
+
+        //おまじないとしてのインスタンスを生成
         request.setAttribute("task", new Task());
-        
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/task/new.jsp");
         rd.forward(request, response);
     }
